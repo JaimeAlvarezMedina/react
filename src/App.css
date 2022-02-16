@@ -1,0 +1,59 @@
+.App-header {
+  background-color: #282c34;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+#cuadro_texto{
+  width: 80%;
+  height: 70vh;
+  margin-top: 15px;
+  margin-left: 10%;
+  border-radius: 5% 0% 0% 5%;
+  border: 1px solid black;
+  text-align: justify;
+  overflow-y: auto;
+}
+
+
+#mensajes{
+  border-radius: 25px;
+  width: 70%;
+  border: 1px solid black;
+  display: flex;
+  Word-wrap: break-Word;
+  margin-top: 1%;
+  
+}
+
+.yo{
+  background-color:red;
+  margin-left: 29%;
+  padding-left: 15px;
+}
+
+.otro{
+  background-color: blue;
+  margin-left: 2%;
+  padding-left: 15px;
+}
+
+#imagen{
+  margin-top: 20px;
+  margin-left: 50px;
+  width: 3%;
+}
+
+#campo_texto{
+  border-radius: 5px;
+  width: 65%;
+  height: 40px;
+  margin-left: 15%;
+  margin-top: 10px;
+}
+
