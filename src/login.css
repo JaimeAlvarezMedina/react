@@ -1,0 +1,20 @@
+button{
+    margin: 10px;
+}
+
+#imagen_logo{
+    height: 14%;
+    width: 14%;
+    margin-left: 43%;
+    margin-top: 5%;
+}
+
+#todo{
+    align-items: center;
+}
+
+#inicio_sesion{
+    justify-content: center;
+    margin-top: 5%;
+    margin-left: 40%;
+}

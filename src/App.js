@@ -7,7 +7,7 @@ function Incorporar(props) {
   if(localStorage.getItem("usuario")==props.id){
     return(    
       <div>
-        <p id='mensajes' class="yo">
+        <p id='mensajes' className="yo">
           {props.id}:
           <br></br>
           {props.comentario}
@@ -18,7 +18,7 @@ function Incorporar(props) {
   else{
     return(    
       <div>
-        <p id='mensajes' class="otro">
+        <p id='mensajes' className="otro">
           {props.id}:
           <br></br>
           {props.comentario}
@@ -34,9 +34,10 @@ class Chat extends React.Component{
     super(props);
     this.state={value:"", aux : "", comentarios : []}
 
-    this.cambio=this.cambio.bind(this);
-    this.escribir=this.escribir.bind(this);
-    this.consultar=this.consultar.bind(this);
+    this.cambiar=this.cambio.bind(this);
+    this.enviar_mensaje=this.escribir.bind(this);
+    this.consulta=this.consultar.bind(this);
+    this.cerrar=this.cerrar_sesion.bind(this);
   }
 
   
@@ -76,7 +77,7 @@ class Chat extends React.Component{
     .then(res => res.json())
       .then(
         (result) => {
-          this.consultar();
+          this.consulta();
           this.setState({aux:""})
 
         }, 
@@ -86,18 +87,36 @@ class Chat extends React.Component{
       )
   }
 
+  cerrar_sesion(){
+    localStorage.setItem("usuario","");
+    window.location.href="/login";
+  }
+
+  componentDidMount(){
+    if(localStorage.getItem("usuario")==""){
+      window.location.href="/login";
+    }
+
+    
+  }
+
   render(){
+    
     return (
-      <div className="App" onLoad={this.consultar}>
-        <header className="App-header">
-          <h1>Hola {localStorage.getItem("usuario")}</h1>
-        </header>
-        <div id="cuadro_texto" onLoad={this.consultar} >
-            {this.state.comentarios.map((comentario)=><Incorporar id={comentario.Nombre_usuario} comentario={comentario.Comentario}/>)}
+      <div className="App" onLoad={this.consulta}>
+        <div>
+          <header className="App-header">
+            <h1>Hola {localStorage.getItem("usuario")}</h1>
+            <button id='cerrar' onClick={this.cerrar} className="btn btn-outline-light">Cerrar sesión</button>
+          </header>
+          <div id="cuadro_texto" onLoad={this.consulta} >
+              {this.state.comentarios.map((comentario)=><Incorporar id={comentario.Nombre_usuario} comentario={comentario.Comentario}/>)}
+          </div>
+          <div id="enviar_mensaje">
+            <input type="text" id="campo_texto" value={this.state.aux}  onChange={this.cambiar} />
+            <img src={imagen} id="imagen" onClick={this.enviar_mensaje}/>
+          </div>
         </div>
-        <input type="text" id="campo_texto" value={this.state.aux}  onChange={this.cambio} />
-        <img src={imagen} id="imagen" onClick={this.escribir}/>
-          <a href="/login">Cjat</a>
       </div>
     );
   }
