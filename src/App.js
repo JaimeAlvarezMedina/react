@@ -38,12 +38,35 @@ class Chat extends React.Component{
     this.enviar_mensaje=this.escribir.bind(this);
     this.consulta=this.consultar.bind(this);
     this.cerrar=this.cerrar_sesion.bind(this);
+    this.vaciar_chat=this.borrar_todo.bind(this);
   }
 
   
 
   cambio(event){
     this.setState({aux:event.target.value});
+  }
+
+  borrar_todo(){
+    var datos = new FormData();
+    
+    fetch("http://localhost/php_react/borrar_todo.php" ,{
+      method : 'POST',
+      body: datos
+    })
+    .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          if(result=="Borrado"){
+            console.log(result);
+            this.consulta();
+          }
+        },
+        (error) => {
+          console.log("Error leyendo" + error);
+        }
+      )
   }
 
   consultar(){
@@ -96,8 +119,6 @@ class Chat extends React.Component{
     if(localStorage.getItem("usuario")==""){
       window.location.href="/login";
     }
-
-    
   }
 
   render(){
@@ -106,6 +127,7 @@ class Chat extends React.Component{
       <div className="App" onLoad={this.consulta}>
         <div>
           <header className="App-header">
+            <button id='borrar' onClick={this.vaciar_chat} className="btn btn-outline-danger">Vaciar chat</button>
             <h1>Hola {localStorage.getItem("usuario")}</h1>
             <button id='cerrar' onClick={this.cerrar} className="btn btn-outline-light">Cerrar sesión</button>
           </header>
