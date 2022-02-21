@@ -13,13 +13,13 @@ class Login extends React.Component{
     this.registra=this.registrar.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount(){//Componentes que se van a ejecutar en cuanto se cargue la pagina
     if(localStorage.getItem("usuario")!=""){
       window.location.href="/chat";
     }
   }
 
-  iniciar_sesion(){
+  iniciar_sesion(){//Comprueba que el usuario este en la base de datos y coincida con la contraseña
       var datos= new FormData();
       datos.append('usuario', this.state.usuario);
       datos.append('contra', this.state.contra);
@@ -45,7 +45,7 @@ class Login extends React.Component{
           )
   }
 
-  registrar(){
+  registrar(){//Añade un usuario en la base de datos
     var datos= new FormData();
     datos.append('usuario', this.state.usuario);
       datos.append('contra', this.state.contra);

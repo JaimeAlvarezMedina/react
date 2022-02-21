@@ -57,13 +57,13 @@ class Chat extends React.Component{
     this.setState({url:event.target.value});
   }
 
-  muestra(){
+  muestra(){//Para mostrar el input para el fondo
     document.getElementById("poner_fondo").style.display="block";
     document.getElementById("cuadro_texto").style.marginLeft="2%";
     document.getElementById("imagen_compartir").style.display="none";
   }
 
-  fondo(){
+  fondo(){//Para insertar el fondo en la base de datos
     var datos = new FormData();
     
     datos.append('url', this.state.url);
@@ -85,7 +85,7 @@ class Chat extends React.Component{
       )
   }
 
-  mostrar_fondo(){
+  mostrar_fondo(){//Para mostrar el fondo en el chat de cada uno
     document.getElementById("poner_fondo").style.display="none";
     document.getElementById("cuadro_texto").style.marginLeft="10%";
     document.getElementById("imagen_compartir").style.display="block";
@@ -112,7 +112,7 @@ class Chat extends React.Component{
       )
   }
 
-  borrar_todo(){
+  borrar_todo(){//Borra todo el chat
     var datos = new FormData();
     
     fetch("http://localhost/php_react/borrar_todo.php" ,{
@@ -134,7 +134,7 @@ class Chat extends React.Component{
       )
   }
 
-  consultar(){
+  consultar(){//Consulta los mensajes de toda la base de datos
     
     var datos = new FormData();
     
@@ -150,7 +150,7 @@ class Chat extends React.Component{
     
           });
           var scroll = document.getElementById("cuadro_texto");
-          scroll.scrollTop = scroll.scrollHeight;
+          scroll.scrollTop = scroll.scrollHeight;//Para que el scroll este abajo
         },
         (error) => {
           console.log("Error leyendo" + error);
@@ -158,7 +158,7 @@ class Chat extends React.Component{
       )
   }
 
-  escribir(){
+  escribir(){//Para mandar los mensajes a la base de datos
     var datos = new FormData();
     datos.append('comentario', this.state.aux);
     datos.append("usuario",localStorage.getItem("usuario"))
@@ -179,16 +179,16 @@ class Chat extends React.Component{
       )
   }
 
-  cerrar_sesion(){
+  cerrar_sesion(){//Cierra la sesion y te manda al login
     localStorage.setItem("usuario","");
     window.location.href="/login";
   }
 
-  enter(e){
+  enter(e){//Para que se envie el mensaje al darle al enter
     if (e.key === 'Enter') {this.enviar_mensaje()}
   }
 
-  componentDidMount(){
+  componentDidMount(){//Componentes que se van a ejecutar en cuanto se cargue la pagina
     if(localStorage.getItem("usuario")==""){
       window.location.href="/login";
     }
