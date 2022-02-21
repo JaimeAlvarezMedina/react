@@ -44,6 +44,7 @@ class Chat extends React.Component{
     this.cambiar_fondo=this.fondo.bind(this);
     this.mostrar=this.muestra.bind(this);
     this.consulta_fondo=this.mostrar_fondo.bind(this);
+    this.envio_tecla=this.enter.bind(this);
   }
 
   
@@ -134,6 +135,7 @@ class Chat extends React.Component{
   }
 
   consultar(){
+    
     var datos = new FormData();
     
     fetch("http://localhost/php_react/consulta.php" ,{
@@ -145,7 +147,10 @@ class Chat extends React.Component{
         (result) => {
           this.setState({
             comentarios : result
+    
           });
+          var scroll = document.getElementById("cuadro_texto");
+          scroll.scrollTop = scroll.scrollHeight;
         },
         (error) => {
           console.log("Error leyendo" + error);
@@ -179,18 +184,23 @@ class Chat extends React.Component{
     window.location.href="/login";
   }
 
+  enter(e){
+    if (e.key === 'Enter') {this.enviar_mensaje()}
+  }
+
   componentDidMount(){
     if(localStorage.getItem("usuario")==""){
       window.location.href="/login";
     }
     this.consulta_fondo();
-
+    this.consulta();
+    
   }
 
   render(){
     
     return (
-      <div className="App" onLoad={this.consulta}>
+      <div className="App">
         <div>
           <header className="App-header">
             <button id='borrar' onClick={this.vaciar_chat} className="btn btn-outline-danger">Vaciar chat</button>
@@ -201,7 +211,7 @@ class Chat extends React.Component{
               {this.state.comentarios.map((comentario)=><Incorporar id={comentario.Nombre_usuario} comentario={comentario.Comentario}/>)}
           </div>
           <div id="enviar_mensaje">
-            <input type="text" id="campo_texto" value={this.state.aux}  onChange={this.cambiar} autoFocus />
+            <input type="text" id="campo_texto" value={this.state.aux}  onChange={this.cambiar} onKeyPress={this.envio_tecla} autoFocus />
             <img src={imagen_flecha} id="imagen_flecha" onClick={this.enviar_mensaje}/>
             <img src={imagen_fondo} id="imagen_compartir" onClick={this.mostrar}/>
             <div id="poner_fondo">
