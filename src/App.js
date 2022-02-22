@@ -103,8 +103,9 @@ class Chat extends React.Component{
           this.setState({
             url_fondo : result[0]
           });
-          console.log(this.state.url_fondo.Fondo);
-          document.getElementById("cuadro_texto").style.background='url('+this.state.url_fondo.Fondo+')';
+          document.getElementById("cuadro_texto").style.background='url('+this.state.url_fondo.Fondo+') no-repeat center center fixed';
+          document.getElementById("cuadro_texto").style.backgroundSize='cover';
+          this.setState({url:""});
         },
         (error) => {
           console.log(error);

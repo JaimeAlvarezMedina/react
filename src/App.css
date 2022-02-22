@@ -35,6 +35,12 @@
   border: 1px solid black;
   text-align: justify;
   overflow-y: scroll;
+
+ 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 
